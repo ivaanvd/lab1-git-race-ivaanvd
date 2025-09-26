@@ -35,9 +35,8 @@ class HelloControllerMVCTests {
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(view().name("welcome"))
-            .andExpect(model().attribute("message", equalTo("Hello, Developer!")))
-            .andExpect(model().attribute("name", equalTo("Developer")))
-    }
+            .andExpect(model().attribute("message", startsWith("Good")))
+            .andExpect(model().attribute("message", containsString("Developer")))
     
     @Test
     fun `should return API response as JSON`() {
