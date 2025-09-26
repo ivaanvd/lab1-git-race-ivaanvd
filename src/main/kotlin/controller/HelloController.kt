@@ -26,8 +26,7 @@ class HelloController(
             in 12..19 -> "Good afternoon"
             else -> "Good night"
         }
-        val greeting = 
-        if (name.isNotBlank()) "$greetingTime, $name!" else "$greetingTime!"
+        val greeting = if (name.isNotBlank()) "$greetingTime, $name!" else "$greetingTime, $message"
         model.addAttribute("message", greeting)
         model.addAttribute("name", name)
         return "welcome"

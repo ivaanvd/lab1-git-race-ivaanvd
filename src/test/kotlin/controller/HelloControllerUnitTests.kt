@@ -21,16 +21,21 @@ class HelloControllerUnitTests {
         val view = controller.welcome(model, "")
         
         assertThat(view).isEqualTo("welcome")
-        assertThat(model.getAttribute("message")).isEqualTo("Test Message")
+        val message = model.getAttribute("message") as String
+        assertThat(message).startsWith("Good")
+        assertThat(message).contains("Test Message")
         assertThat(model.getAttribute("name")).isEqualTo("")
     }
     
-    @Test
+    @Test // New test for personalized greeting
     fun `should return welcome view with personalized message`() {
         val view = controller.welcome(model, "Developer")
-        
+
         assertThat(view).isEqualTo("welcome")
-        assertThat(message).matches(".*(Good morning|Good afternoon|Good evening).*")
+
+        val message = model.getAttribute("message") as String
+
+        assertThat(message).startsWith("Good")
         assertThat(message).contains("Developer")
         assertThat(model.getAttribute("name")).isEqualTo("Developer")
     }
@@ -42,7 +47,8 @@ class HelloControllerUnitTests {
         
         assertThat(response).containsKey("message")
         assertThat(response).containsKey("timestamp")
-        assertThat(response["message"]).isEqualTo("Hello, Test!")
+        assertThat(response["message"]).startsWith("Good")
+        assertThat(response["message"]).contains("Test")
         assertThat(response["timestamp"]).isNotNull()
     }
 }
