@@ -30,7 +30,8 @@ class HelloControllerUnitTests {
         val view = controller.welcome(model, "Developer")
         
         assertThat(view).isEqualTo("welcome")
-        assertThat(model.getAttribute("message")).isEqualTo("Hello, Developer!")
+        assertThat(message).matches(".*(Good morning|Good afternoon|Good evening).*")
+        assertThat(message).contains("Developer")
         assertThat(model.getAttribute("name")).isEqualTo("Developer")
     }
     
