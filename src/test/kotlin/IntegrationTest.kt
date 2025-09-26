@@ -29,22 +29,26 @@ class IntegrationTest {
         assertThat(response.body).contains("Client-Side Educational Tool")
     }
 
-    @Test
+    @Test // New test for dynamic greeting
     fun `should return personalized greeting with dynamic time-based message`() {
+        // Request the home page with a name parameter
         val response = restTemplate.getForEntity("http://localhost:$port?name=Developer", String::class.java)
+        // Check that the response is OK
         assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-
+        // Check that the body contains the name and a time-based greeting
         val body = response.body!!
         assertThat(body).contains("Developer")
         assertThat(body).containsPattern("Good (morning|afternoon|evening)")
     }
 
 
-    @Test
+    @Test // Modified test for API endpoint
     fun `should return API response with timestamp`() {
+        // Request the API endpoint with a name parameter
         val response = restTemplate.getForEntity("http://localhost:$port/api/hello?name=Test", String::class.java)
-        
+        // Check that the response is OK
         assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
+        // Check that the content type is JSON and contains the expected fields
         assertThat(response.headers.contentType).isEqualTo(MediaType.APPLICATION_JSON)
         assertThat(response.body).containsPattern("Good (morning|afternoon|evening)")
         assertThat(response.body).contains("timestamp")

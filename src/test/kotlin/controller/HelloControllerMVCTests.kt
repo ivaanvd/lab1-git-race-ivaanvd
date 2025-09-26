@@ -25,6 +25,7 @@ class HelloControllerMVCTests {
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(view().name("welcome"))
+            // Check that the message starts with "Good" and contains the default message
             .andExpect(model().attribute("message", allOf(startsWith("Good"), containsString(message))))
             .andExpect(model().attribute("name", equalTo("")))
     }
@@ -35,6 +36,7 @@ class HelloControllerMVCTests {
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(view().name("welcome"))
+            // Check that the message starts with "Good" and contains "Developer"
             .andExpect(model().attribute("message", containsString("Good")))
             .andExpect(model().attribute("message", containsString("Developer")))
     }
@@ -44,6 +46,7 @@ class HelloControllerMVCTests {
             .andDo(print())
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            // Check that the message starts with "Good" and contains "Test"
             .andExpect(jsonPath("$.message", containsString("Good")))
             .andExpect(jsonPath("$.timestamp").exists())
     }

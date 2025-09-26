@@ -19,14 +19,19 @@ class HelloController(
         model: Model,
         @RequestParam(defaultValue = "") name: String
     ): String {
+        // Get current hour to determine greeting
         val timeNow = java.time.Instant.now().toString()
+        // Extract hour from the timestamp
         val hourNow = timeNow.substring(11, 13).toInt()
+        // Determine greeting based on hour
         val greetingTime = when (hourNow) {
             in 6..11 -> "Good morning"
             in 12..19 -> "Good afternoon"
             else -> "Good night"
         }
+        // Make greeting personalized if name is provided
         val greeting = if (name.isNotBlank()) "$greetingTime, $name!" else message
+        // Add attributes to the model for rendering
         model.addAttribute("message", greeting)
         model.addAttribute("name", name)
         return "welcome"
@@ -38,8 +43,11 @@ class HelloApiController {
     
     @GetMapping("/api/hello", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun helloApi(@RequestParam(defaultValue = "World") name: String): Map<String, String> {
+        // Get current hour to determine greeting
         val timeNow = java.time.Instant.now().toString()
+        // Extract hour from the timestamp
         val hourNow = timeNow.substring(11, 13).toInt()
+        // Determine greeting based on hour
         val greetingTime = when (hourNow) {
             in 6..11 -> "Good morning"
             in 12..19 -> "Good afternoon"
